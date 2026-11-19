@@ -8,6 +8,7 @@ import {
   Code2,
   FileText,
   MapPin,
+  Mail,
   Wrench,
 } from "lucide-react"
 
@@ -98,7 +99,7 @@ export function HeroSection() {
           <div className="hero-actions">
             <a className="button button-primary" href="#projects">Explore my work <ArrowRight aria-hidden="true" size={16} /></a>
             <a className="button button-secondary demo-hero-button" href="#demo"><ClipboardList aria-hidden="true" size={16} /> View Interactive Demo</a>
-            <a className="button button-secondary" href="#resume"><FileText aria-hidden="true" size={16} /> Resume PDF · add link</a>
+            {professionalLinks.resume && <a className="button button-secondary" href={professionalLinks.resume}><FileText aria-hidden="true" size={16} /> Resume PDF</a>}
             <a className="button button-secondary" href="#contact">Contact</a>
           </div>
           <p className="hero-note"><MapPin aria-hidden="true" size={14} /> Columbia, SC <span>·</span> Remote roles, freelance & collaborations</p>
@@ -161,17 +162,25 @@ export function ExperienceSection() {
   )
 }
 
+const professionalLinks = {
+  resume: "",
+  github: "",
+  linkedin: "",
+  email: "mailto:geterrobert586@gmail.com",
+}
+
 export function ContactSection() {
   return (
     <section className="section contact-section shell" id="contact">
-      <div className="contact-panel"><div className="contact-panel-copy"><div className="section-kicker"><span>05</span> CONTACT</div><h2>Let&apos;s solve<br /><span>something useful.</span></h2><p>Open to remote technical roles, freelance opportunities, and business collaborations. I&apos;d be glad to hear what you&apos;re working on.</p><span className="contact-location"><MapPin aria-hidden="true" size={15} /> Columbia, South Carolina</span></div><div className="contact-links"><ContactPlaceholder id="resume" icon={<FileText size={18} />} label="Resume PDF" hint="Add your resume PDF link" /><ContactPlaceholder icon={<Code2 size={18} />} label="GitHub" hint="Add your GitHub profile" /><ContactPlaceholder icon={<BriefcaseBusiness size={18} />} label="LinkedIn" hint="Add your LinkedIn profile" /><ContactPlaceholder icon={<ArrowUpRight size={18} />} label="Professional email" hint="Add your preferred email" /></div></div>
-      <p className="contact-edit-note">Before publishing, replace these editable contact placeholders with your preferred links and details.</p>
+      <div className="contact-panel"><div className="contact-panel-copy"><div className="section-kicker"><span>05</span> CONTACT</div><h2>Let&apos;s solve<br /><span>something useful.</span></h2><p>Open to remote technical roles, freelance opportunities, and business collaborations. I&apos;d be glad to hear what you&apos;re working on.</p><span className="contact-location"><MapPin aria-hidden="true" size={15} /> Columbia, South Carolina</span></div><div className="contact-links"><ContactLink id="resume" href={professionalLinks.resume} icon={<FileText aria-hidden="true" size={18} />} label="Resume PDF" /><ContactLink href={professionalLinks.github} icon={<Code2 aria-hidden="true" size={18} />} label="GitHub" /><ContactLink href={professionalLinks.linkedin} icon={<BriefcaseBusiness aria-hidden="true" size={18} />} label="LinkedIn" /><ContactLink href={professionalLinks.email} icon={<Mail aria-hidden="true" size={18} />} label="Professional email" /></div></div>
     </section>
   )
 }
 
-function ContactPlaceholder({ id, icon, label, hint }: { id?: string; icon: React.ReactNode; label: string; hint: string }) {
-  return <div className="contact-link-placeholder" id={id}><span className="contact-link-icon">{icon}</span><span><strong>{label}</strong><small>{hint}</small></span><span className="placeholder-edit">EDIT</span></div>
+function ContactLink({ id, href, icon, label }: { id?: string; href?: string; icon: React.ReactNode; label: string }) {
+  if (!href) return null
+  const detail = href.startsWith("mailto:") ? href.slice(7) : href
+  return <a className="contact-link" id={id} href={href}><span className="contact-link-icon">{icon}</span><span><strong>{label}</strong><small>{detail}</small></span></a>
 }
 
 export function PortfolioFooter() {
