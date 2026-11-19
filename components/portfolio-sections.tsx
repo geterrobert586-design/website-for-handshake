@@ -4,6 +4,7 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   Check,
+  ClipboardList,
   Code2,
   FileText,
   MapPin,
@@ -96,6 +97,7 @@ export function HeroSection() {
           <p className="hero-description">I turn everyday operational challenges into clear, useful technology—grounded in years of hands-on problem-solving and a growing practice in modern application development.</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#projects">Explore my work <ArrowRight aria-hidden="true" size={16} /></a>
+            <a className="button button-secondary demo-hero-button" href="#demo"><ClipboardList aria-hidden="true" size={16} /> View Interactive Demo</a>
             <a className="button button-secondary" href="#resume"><FileText aria-hidden="true" size={16} /> Resume PDF · add link</a>
             <a className="button button-secondary" href="#contact">Contact</a>
           </div>
